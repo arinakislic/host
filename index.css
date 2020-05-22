@@ -1,0 +1,15 @@
+.mybutton {
+background-color: rgb(255,111,65) !important;
+color: white;
+margin: 2px;
+}
+.roomtitle {
+    color: rgb(21,149,148);
+    font-weight: bold;
+}
+.roomimg {
+    height: 124px;
+}
+.roomtext {
+    font-weight: 300;
+}
