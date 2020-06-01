@@ -1,0 +1,43 @@
+<html>
+    <head>
+    <script type="text/javascript" lang="javascript" src="js/register.js"></script>
+    <link rel="stylesheet" href="Register.css" type="text/css" >
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#birthtime" ).datepicker({
+        showButtonPanel: true
+     });
+  } );
+
+  function Reg()
+  {
+    var name = $('#name').val();
+    var bith = $(`#birthtime`).val();
+    var num = $(`#phone`).val();
+    var pass = $(`#password`).val();
+    var email = $(`#email`).val();
+    Register(name,bith,num,pass,email);
+
+  }
+  </script>
+    </head>
+    <body>
+    <div id="bb">
+    <div>Регистрация пользователя</div>
+    <hr width="95%" color="grey">
+    <div>*Обязательное поле</div>
+    <div id="nn">
+    <div ><span></span>ФИО*</span><input type="text" id="name"></div>
+    <div ><span></span>Дата рождения*</span><input type="text" id="birthtime" ></div>
+    <div ><span></span>Телеофон</span><input type="text" id="phone"></div>
+    <div ><span></span>Адрес электронной почты*</span><input type="text" id="email"></div> 
+    <div><span style="width:100px;">Подтверждение адреся электронной почты:*</span><input type="text" id="email2"></div>
+    <div><span><input type="submit" id="put" value="Регистрация" onclick="javascript:Reg();"></span>
+        <span><input type="submit" value="Отмена"><span></div>
+    </div>
+    </div>
+    </body>
+</html>

@@ -18,6 +18,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
     <title>Отель Атланта</title>
+    <script src="js/data.js"></script>
+    <script type="text/javascript">
+    function createCard(carddata)
+    {
+      let card = '<div class="card" style="width: 18rem;margin:3px;">' + 
+            '<img src="'+carddata.imgUrl+'" class="card-img-top roomimg" alt="...">'+
+            '<div class="card-body">'+
+            '  <h5 class="card-title roomtitle">Номер '+carddata.category+'</h5>'+
+            '  <p class="card-text roomtext">'+carddata.descriptionShort+'</p>' +
+            '  <a href="room_details.html?id='+carddata.roomId+'" class="btn mybutton">Подробнее</a>'+
+            '</div> </div>';
+      return card;
+    }
+    $( document ).ready(function() {
+      var roomsStr = "";
+      for(let i=0;i<rooms.length;i++)
+      {
+        roomsStr=roomsStr+createCard(rooms[i]);
+      }
+      $(`#rooms`).html(roomsStr);
+    });
+    </script>
 </head>
 <body>
   
@@ -50,8 +72,8 @@
           </ul>
         </div>
       </nav></div>
-    <div id="main_picture" style="margin-left: 500px;"><img src="10.jpg" height="300px" width="550px"></div>
-<div id="booking" style="margin-left: 540px;">
+    <div id="main_picture" style="display: flex;justify-content: center;"><img src="10.jpg" height="300px" width="550px"></div>
+<div id="booking" style="display: flex;justify-content: center;">
     <form class="form-inline">
     <select сlass="form-control" name="person" id="person">
         <option value="1">1 гость</option>
@@ -65,26 +87,9 @@
     <button type="button" class="btn mybutton">Найти</button>
 </form>
 </div>
-<table style="margin-left: 485px;">
-    <div id="rooms" style="margin-left: 485px;">
-      <tr> <th><div class="card" style="width: 18rem;">
-            <img src="https://gardalandresortumbracoapp.azurewebsites.net/media/1240478/978x404_2_happy-birthday.png" class="card-img-top roomimg" alt="...">
-            <div class="card-body">
-              <h5 class="card-title roomtitle">Номер 1</h5>
-              <p class="card-text roomtext">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn mybutton">Go somewhere</a>
-            </div>
-          </div></th>
-          <th><div class="card" style="width: 18rem;">
-            <img src="https://www.gardaland.it/media/1239897/gh_juniorsuite-1.png" class="card-img-top roomimg" alt="...">
-            <div class="card-body">
-              <h5 class="card-title roomtitle">Номер 2</h5>
-              <p class="card-text roomtext">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn mybutton" >Go somewhere</a>
-            </div>
-          </div></th></tr>
-
-    </div>
-  </table>
+<div id="roomsContainer" style="width: 100%;display: flex;justify-content: center;">
+    <div id="rooms" style="display: flex;
+    flex-direction: row;"></div>
+  </div>
 </body>
 </html>
