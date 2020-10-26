@@ -1,0 +1,120 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+<title>Отель Атланта - Бронирование</title>
+<script src="js/data.js"></script>
+<script type="text/javascript">
+      $(document).ready(function() {
+
+          for(var i=0; i<myBookings.length;i++)
+          {
+              var room = undefined;
+             
+              for(let j=0;j<rooms.length;j++)
+                {
+                if(rooms[j].roomId == myBookings[i].roomId)
+                    {
+                        myBookings[i].room=rooms[j];
+                    }
+                }
+                console.log(myBookings[i]);
+
+                var bookStr='<div style="display: flex;flex-direction: row; justify-content: center; margin-top: 50px; background-color:  lightgray; border-radius: 20px; border: 5px solid gray;"> <div style="display: flex;justify-content: center;"><div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 500px;"><div class="carousel-inner" id="imagesContainer'+myBookings[i].id+'"><div class="carousel-item active"><img src="https://www.gorkihotels.ru/upload/iblock/9c6/9c6f8c74f5d0c7f766c9159d8301e5f1.jpg" class="d-block w-100" alt="..."></div><div class="carousel-item"><img src="https://media-cdn.tripadvisor.com/media/photo-s/08/f0/9d/c4/sheraton-ufa-hotel.jpg"  class="d-block w-100" alt="..."></div><div class="carousel-item"><img src="https://www.mebel-mr.ru/images/tb/6/4/9/64991/14065573175853_w4000h3200.jpg" class="d-block w-100" alt="..."></div></div><a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a></div></div><div style="margin: 15px;line-height: 40px;"><div style="font-size: 17px;font-family: Franklin Gothic Medium;">'+myBookings[i].room.category+'</div><div>'+myBookings[i].dateFrom+' - '+myBookings[i].dateTo+'</div><div>'+myBookings[i].guests+' человека</div><div >'+myBookings[i].tariff.name+'</div><div ><a href="BookingForm.html?id='+myBookings[i].id+'" class="btn btn-warning" style="margin: 15px;">Изменить</a><button class="btn btn-danger" style="margin: 15px;" onclick="showDialog()">Отменить</button></div></div></div>';
+
+                $('#container').html( $('#container').html()+ bookStr);
+          }
+          if(myBookings!=undefined)
+         {
+          for(var j=0; j<myBookings.length;j++)
+          {
+            var imagesStr = "";
+            for(let i=0;i<myBookings[i].room.images.length;i++)
+            {
+                imagesStr=imagesStr+createImage(myBookings[j].room.images[i],(i==0));
+            }
+            console.log(imagesStr);
+            $(`#imagesContainer`+myBookings[j].id).html(imagesStr);
+          }
+        }
+        
+        var roomsStr = "";
+      for(let i=0;i<rooms.length;i++)
+      {
+        roomsStr=roomsStr+createCard(rooms[i]);
+      }
+      $(`#rooms`).html(roomsStr);
+      let currentUser=JSON.parse(localStorage.getItem("user"));
+      if(currentUser!=undefined)
+        $(`#person`).text(currentUser.name);
+      });
+
+      function createImage(value, isactive)
+    {
+      let image = '';
+      if(isactive) image =  '<div class="carousel-item active">'+
+                 '<img src="'+value+'" class="d-block w-100" alt="room"></div>';
+      else
+                 image = '<div class="carousel-item">'+
+                 '<img src="'+value+'" class="d-block w-100" alt="room"></div>';
+      return image;
+    }
+
+    function showDialog()
+{
+  let x = confirm("Вы уверены, что хотите отменить бронирование? Эту операцию отменить нельзя. Вы уверены?");
+  
+  if(x==true) 
+  {
+    //вызов операции удаления
+  }
+
+}
+</script>
+</head>
+<body>
+  <div id="menu"><nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><img src="logo.png" style="height: 64px;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li>
+          <a class="nav-link" href="index.html">Главная<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="room.html">Номера</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ресторан
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="breakfast.html">Завтраки</a>
+              <a class="dropdown-item" href="foodDay.html">Меню дня</a>
+            </div>
+          </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="review.html">Отзывы</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="BookingList.html">Мои бронирования</a>
+          </li>
+      </ul>
+      <span id="person" style="right:10px ;position: absolute;"><img src="https://image.flaticon.com/icons/svg/1077/1077063.svg" style="width: 24px;
+        margin-right: 5px;"><a href="authorization.html">Войти</a></span>
+    </div>
+  </nav></div>
+
+<div style="margin: 10px; font-size: 25px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-align: center;">Ваши бронирования</div>
+<div  style="margin: 70px;" id="container">
+</div>
+
+</body>
+</html>

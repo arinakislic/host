@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="js/jquery-ui.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/data.js"></script>
+    <script type="text/javascript">
+   
+        $(document).ready(function () {
+             var workers_name=[];
+             var in_count=[];
+             var out_count=[];
+             for(let i=0;i<concierges[0].workers.length;i++){
+                workers_name.push(concierges[0].workers[i].fio);
+
+                var count=0;
+                for(let j=0;j<concierges[0].workers[i].in.length;j++){
+                    count++;
+                }
+                in_count.push(count);
+
+                count=0;
+                for(let j=0;j<concierges[0].workers[i].out.length;j++){
+                    count++;
+                }
+                out_count.push(count);
+             }
+             console.log(workers_name);
+             console.log(in_count);
+             console.log(out_count);
+             for (let i=0;i<workers_name.length;i++){
+             $("#cons").html($("#cons").html() + workers_name[i] +"<span>-" + in_count[i] + "(въехало)</span><span>-" + out_count[i] + "(выехало)</span><br>");
+             }
+           
+
+             var maids_name = [];
+             var roomClean = [];
+             for(let i=0;i<maids[0].workers.length;i++){
+                maids_name.push(maids[0].workers[i].fio);
+                roomClean.push(maids[0].workers[i].rooms.length);
+             }
+             console.log(maids_name);
+             console.log(roomClean);
+             for(let i=0;i<maids_name.length;i++){
+                $("#maid").html($("#maid").html() + maids_name[i] +"<span>  убрала-" + roomClean[i] + "комнат (" +  Math.round((roomClean[i]/maids[0].total)*100) +"%) </span><br>");
+             }
+
+             var b_done = localStorage.getItem("b_done");
+             $("#b_done").text(b_done);
+             console.log(b_done);
+             var b_ordered = localStorage.getItem("b_ordered");
+             $("#b_ordered").text(b_ordered);
+             console.log(b_ordered);
+             $("#b_perc").html(Math.round((b_done/b_ordered)*100));
+
+
+             var l_done = localStorage.getItem("l_done");
+             $("#l_done").text(l_done);
+             console.log(l_done);
+             var l_ordered = localStorage.getItem("l_ordered");
+             $("#l_ordered").text(l_ordered);
+             console.log(l_ordered);
+             $("#l_perc").html(Math.round((l_done/l_ordered)*100));
+        });
+    </script>
+</head>
+
+<body>
+    <div style="font-size: 30px;font-family: Arial, Helvetica, sans-serif;margin: 10px;text-align: center;">Страница директора</div>
+    <div id="conteiner">
+
+        <div class="bossBackground">
+            <div>Дата с<input type="date"></div>
+            <div>Дата по<input type="date"></div>
+            <div><button class="btn btn-danger">Ok</button></div>
+        </div>
+
+        <div class="bossBackground"  >
+            <div style="font-size: 25px;">Работа консьержей</div>
+            <div id="cons"></div>
+        </div>
+
+        <div class="bossBackground">
+        <div style="font-size: 25px;">Работа горничных</div>
+        <div id="maid"></div>
+        </div>
+
+        <div class="bossBackground">
+            <div style="font-size: 25px;">Работа поворов</div>
+            <div id="cooker">
+                <div>Завтраков заказано <span id="b_ordered"></span>, готово <span id="b_done"></span> (<span id="b_perc"></span>%)</div>
+                <div>Обедов заказано <span id="l_ordered"></span>, готово <span id="l_done"></span> (<span id="l_perc"></span>%)</div>
+            </div>
+            </div>
+
+        </div>
+
+</body>
+
+</html>

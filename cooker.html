@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/jquery-ui.css">
+  <script src="js/jquery-1.12.4.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  </script>
+
+  <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/data.js"></script>
+  <script type="text/javascript">
+    var count = 0;
+    var ordered = 0;
+    var b_done = 0;
+    var b_ordered = 0;
+    var l_done = 0;
+    var l_ordered = 0;
+    var tommorowMenu = [];
+    $(document).ready(function () {
+      tommorowMenu = JSON.parse(localStorage.getItem("tommorowMenu"));
+      if(tommorowMenu == null) tommorowMenu=[];
+      else{
+        for(let i=0;i<tommorowMenu.length;i++){
+          let tommorowMenuItem  =  tommorowMenu[i];
+          console.log(tommorowMenuItem);
+          menuShow(tommorowMenuItem.date,tommorowMenuItem.name,tommorowMenuItem.dis,tommorowMenuItem.tipe,tommorowMenuItem.pic);
+        }
+      }
+
+      var user = JSON.parse(localStorage.getItem("user"));
+      if(user==undefined)
+        window.location.href="authorization.html";
+      let meals_count = []; // id - count
+      let meals_name = []; // id - name
+      let breakfast_count  = [];
+      let breakfast_name = [];
+      for(let i=0;i<lunch_orders.length;i++)
+      {
+        //console.log(lunch_orders[i].orders);
+        for(let j=0;j<lunch_orders[i].orders.length;j++)
+        {
+         // console.log(lunch_orders[i].orders[j].meals);
+          for(let z=0;z<lunch_orders[i].orders[j].meals.length;z++)
+          {
+            let meal_id = lunch_orders[i].orders[j].meals[z];
+            if(meals_count[meal_id]!=undefined)
+              meals_count[meal_id]++;
+              else
+              meals_count[meal_id] = 1;
+          }
+        }
+      }
+
+      for(let i=0;i<lunch.length;i++)
+      {
+        //console.log(lunch.length);
+        for(let a=0;a<lunch[i].soup.length;a++)
+        {
+          //console.log(lunch[i].soup[a].name);
+          meals_name[lunch[i].soup[a].id] = lunch[i].soup[a].name;
+        }
+        
+      }
+
+      for(let i=0;i<lunch.length;i++)
+      {
+        //console.log(lunch.length);
+        for(let a=0;a<lunch[i].meal.length;a++)
+        {
+          //console.log(lunch[i].soup[a].name);
+          meals_name[lunch[i].meal[a].id] = lunch[i].meal[a].name;
+        }
+        
+      }
+
+      for(let i=0;i<lunch.length;i++)
+      {
+        //console.log(lunch.length);
+        for(let a=0;a<lunch[i].drink.length;a++)
+        {
+          //console.log(lunch[i].soup[a].name);
+          meals_name[lunch[i].drink[a].id] = lunch[i].drink[a].name;
+        }
+        
+      }
+
+      console.log(meals_count);
+      for(let i=0;i<meals_count.length;i++)
+      {
+        //console.log(i);
+        //console.log(meals_count[i]);
+        if(meals_count[i]!=undefined)
+        {
+          $("#meals").html($("#meals").html() +  meals_name[i] + " - "+meals_count[i]+"<select id=mSelect_"+i+" style=margin-left:5px; onchange='onDoneLunch(this)'>"+generateSelect(meals_count[i])+"</select>"+"<br>");
+        }
+        
+      }
+      console.log(breakfast_name);
+      for(let i=0;i<breakfast.length;i++)
+            {
+                console.log(breakfast[i].name);
+              // console.log(breakfast_name);
+                breakfast_name[breakfast[i].id] = breakfast[i].name;
+            }
+console.log(breakfast_name);
+
+console.log(breakfast_count);
+for(let i=0;i<breakfast_orders.length;i++)
+      {
+        console.log(breakfast_orders[i].orders);
+        for(let j=0;j<breakfast_orders[i].orders.length;j++)
+        {
+            let meal_id =  breakfast_orders[i].orders[j].meals;
+            if(breakfast_count[meal_id]!=undefined)
+            breakfast_count[meal_id]++;
+              else
+              breakfast_count[meal_id] = 1;
+        }
+      }
+      console.log(breakfast_count);
+
+      //считает сколько всего завтраков
+      b_ordered=0;
+      for(let i=0;i<breakfast_count.length;i++)
+      {
+        if(breakfast_count[i]!=undefined)
+          b_ordered = b_ordered + breakfast_count[i];
+      }
+      console.log(b_ordered);
+
+      l_ordered=0;
+      for(let i=0;i<meals_count.length;i++)
+      {
+        if(meals_count[i]!=undefined)
+          l_ordered = l_ordered + meals_count[i];
+      }
+
+      for(let i=0;i<breakfast_count.length;i++)
+      {
+        //console.log(i);
+        //console.log(meals_count[i]);
+        if(breakfast_count[i]!=undefined)
+        {
+            $("#breakfast").html($("#breakfast").html() +  breakfast_name[i] + " - "+breakfast_count[i]+"<select id=brSelect_"+i+" style=margin-left:5px; onchange='onDoneBreakfast(this)'>"+generateSelect(breakfast_count[i])+"</select>"+"<br>")
+        }
+        
+      }
+    });
+
+    function onDoneBreakfast(sender)
+    {
+      b_done = b_done + parseInt(sender.value);
+      console.log(b_done);
+      console.log(b_ordered);
+      localStorage.setItem("b_done",b_done);
+      localStorage.setItem("b_ordered",b_ordered);
+    }
+
+    function onDoneLunch(sender)
+    {
+      l_done = l_done + parseInt(sender.value);
+      localStorage.setItem("l_done",l_done);
+      localStorage.setItem("l_ordered",l_ordered);
+    }
+
+    function generateSelect(num)
+    {
+      console.log(num);
+      var options="<option value=0 selected>0</option>";
+      for(let i=0;i<num;i++)
+      {
+        var c = i+1;
+        options=options+"<option value="+c+">"+c+"</option>";
+      }
+      console.log(options);
+      return options;
+    }
+    function add(){
+      console.log('add');
+        var date = $("#date").val();
+        var name = $("#name").val();
+        var pic = $("#pic").val();
+        var dis = $("#dis").val();
+        var tipe = $("#tipe").val();
+
+        tommorowMenu.push({date: date, name: name, pic: pic, dis: dis, tipe: tipe});
+        console.log(tommorowMenu);
+        localStorage.setItem("tommorowMenu",JSON.stringify(tommorowMenu));
+      
+        menuShow(date,name,dis,tipe,pic);
+    }
+    function menuShow(date,name,dis,tipe,pic){
+      var conteiner = `
+        <div style="display:flex;flex-direction:row;">
+        <div class="mealConteiner"><img src="`+pic+`" style="width:150px;">
+      </div>
+      <div style="display:flex;flex-direction:column;">
+      <div class="mealConteiner">`
+      +date+
+      `</div>
+      <div class="mealConteiner">`
+      +name+
+      `</div>
+      <div class="mealConteiner">`
+      +dis+
+      `</div>
+      <div class="mealConteiner">`
+      +tipe+
+      `</div>
+      <button onclick="del('`+date+`','`+name+`')" class="btn btn-danger">Удалить</button>
+      </div>
+      </div>`
+      ;
+        $("#meal_info").html($("#meal_info").html()+conteiner);
+
+    }
+
+    function del(date,name){
+      let a =-1;
+      for(let i=0;i<tommorowMenu.length;i++){
+        if(tommorowMenu[i].date==date&&tommorowMenu[i].name==name){
+          a=i;
+        }
+      }
+      console.log(a);
+      tommorowMenu.splice(a,1);
+      console.log(tommorowMenu);
+      localStorage.setItem("tommorowMenu",JSON.stringify(tommorowMenu));
+      window.location.href="cooker.html";
+    }
+  </script>
+</head>
+<body>
+    <div id="conteiner" style="display: flex;flex-direction: row;">
+<div style="width: 50%; margin: 15px;">
+<h1>Заказы на сегодня</h1>
+
+<div class="table">
+<div class="cooker">Завтраки</div>
+<div class="cooker" id="breakfast"></div>
+<div style="margin: 10px;text-align: center;"><button class="btn btn-success" style="width: 200px;">Заказ готов</button></div>
+</div>
+
+<div class="table">
+    <div class="cooker">Обеды</div>
+    <div class="cooker" id="meals"></div>
+    <div class="cooker" id="soups"></div>
+    <div style="margin: 10px;text-align: center;"><button class="btn btn-success" style="width: 200px;">Заказ готов</button></div>
+</div>
+
+
+    </div>
+    <div ></div>
+<div style="display: flex;flex-direction: column; width: 50%; margin: 15px; margin: 5px;" class="table">
+  <div><h1>Меню на завтра</h1></div>
+  Дата<input type="date" class="tomorow" id="date"> 
+  Заголовок<input type="text" class="tomorow" id="name"> 
+  Картинка<input type="text" class="tomorow" id="pic"> 
+  Описание<input type="text" class="tomorow" id="dis"> 
+<select id="tipe">
+<option>Суп</option>
+<option>Второе</option>
+<option>Напиток</option>
+</select>
+<button onclick="add()">Добавить</button>
+<div id="meal_info"></div>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+  <html>
+   <head> 
+    <meta charset="utf-8" />
+    <title>Калькулятор</title>
+    <title>Калькулятор</title>
+  <link rel="stylesheet" href="js/jquery-ui.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/data.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+    
+
+// function plus(){
+// let lengthRoom = $('#n1').val();
+// console.log(lengthRoom);
+
+// };
+function minus(){
+$(`#out`).html(first-second);
+};
+function multiplication(){
+$(`#out`).html(first*second);
+};
+function division(){
+$(`#out`).html(first/second);
+};
+</script>
+    </head>
+
+    <body>
+      
+
+<p>number 1<input type="text" id="nnn" value="5"></p>
+<p>number 2<input type="text" id="mmm" value="5"></p>
+<button onclick="plus()">+</button>
+<button onclick="minus()">-</button>
+<button onclick="multiplication()">X</button>
+<button onclick="division()">/</button>
+<hr>
+<p>Результат <span id="out"></span></p>
+
+<script type="text/javascript">
+    
+
+  function plus(){
+  let nnn = document.getElementById('nnn').value;
+  nnn = Number(nnn);
+  console.log(nnn);
+  let mmm = document.getElementById('mmm').value;
+  mmm = Number(mmm);
+  console.log(mmm);
+  $(`#out`).html(nnn+mmm);
+ 
+  };
+  function minus(){
+  let nnn = +document.getElementById('nnn').value;
+  let mmm = +document.getElementById('mmm').value;
+  $(`#out`).html(nnn-mmm);
+  };
+  function multiplication(){
+  let nnn = +document.getElementById('nnn').value;
+  let mmm = +document.getElementById('mmm').value;
+  $(`#out`).html(nnn*mmm);
+  };
+  function division(){
+  let nnn = +document.getElementById('nnn').value;
+  let mmm = +document.getElementById('mmm').value;
+  $(`#out`).html(nnn/mmm);
+  };
+  </script>
+
+    </body>

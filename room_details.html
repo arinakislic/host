@@ -45,7 +45,17 @@
         console.log(imagesStr);
         $(`#imagesContainer`).html(imagesStr);
         }
+        $(`#buttonBook`).attr('href','booking.html?id='+id);
 
+        var roomsStr = "";
+      for(let i=0;i<rooms.length;i++)
+      {
+        roomsStr=roomsStr+createCard(rooms[i]);
+      }
+      $(`#rooms`).html(roomsStr);
+      let currentUser=JSON.parse(localStorage.getItem("user"));
+      if(currentUser!=undefined)
+        $(`#person`).text(currentUser.name);
      });
 
     function createImage(value, isactive)
@@ -98,7 +108,8 @@
             </div>
         </div>
         
-<div style="display: flex;justify-content: center;"><button type="button" class="btn mybutton">Забронировать</button></div>
+<div style="display: flex;justify-content: center;">
+  <a id="buttonBook" href="booking.html" class="btn mybutton">Забронировать</button></div>
  
 </body>
 </html>

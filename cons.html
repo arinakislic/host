@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/jquery-ui.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/data.js"></script>
+    <script type="text/javascript">
+    var busy_rooms;
+    var clean_rooms;
+    
+        $(document).ready(function () {
+            busy_rooms = JSON.parse(localStorage.getItem("busy"));
+            if(busy_rooms==undefined) busy_rooms = [];
+
+            clean_rooms = JSON.parse(localStorage.getItem("clean"));
+            if(clean_rooms==undefined) clean_rooms = [];
+
+            for (let i = 0; i < myBookings.length; i++) {
+                var free_rooms = rooms.find(x => x.roomId == myBookings[i].roomId).numbers;
+                console.log(free_rooms);
+                $(`#info`).append(
+                    `<tr><td>${myBookings[i].guestsInfo}</td><td><select id="free_rooms">${generateFreeSelect(free_rooms,busy_rooms)}</select></td><td><button onclick="makeBusy();" class="btn btn-primary">Въезд</button></td></tr>`
+                    )
+            }
+            $(`#out`).html(generateBusySelect());
+        });
+
+        function makeBusy()
+        {
+           // console.log($('#free_rooms').val());
+            busy_rooms.push(parseInt($('#free_rooms').val()));
+            //console.log(busy_rooms);
+            localStorage.setItem("clean",JSON.stringify(clean_rooms));
+            window.location.href = "cons.html";
+        }
+
+        function makeClean()
+        {
+           // console.log($('#free_rooms').val());
+            clean_rooms.push(parseInt($('#out').val()));
+            //console.log(busy_rooms);
+            localStorage.setItem("busy",JSON.stringify(busy_rooms));
+            window.location.href = "cons.html";
+        }
+
+        function generateFreeSelect(all) {
+            var options = "";
+            //console.log(busy_rooms);
+            for (let i = 0; i < all.length; i++) {
+                if(busy_rooms.find(x=>x == all[i])==undefined)
+                    options += "<option value="+all[i]+">"+all[i]+"</option>";
+            }
+            return options;
+        }
+
+        function generateBusySelect() {
+            var options = "";
+            //console.log(busy_rooms);
+            for (let i = 0; i < busy_rooms.length; i++) {
+                    options += "<option value="+busy_rooms[i]+">"+busy_rooms[i]+"</option>";
+            }
+            return options;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="conteiner" style="display: flex; flex-direction: column;">
+        <div style="font-size: 25px;text-align: center;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;margin: 10px; display: flex; flex-direction: column;">Страница консьержа</div>
+        <div style="display: flex;justify-content: center; background-color: rgb(245, 191, 196); border: 5px solid rgb(161, 49, 68); border-radius: 20px;flex-direction: column;"> 
+        <table id="info" border="1" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;margin: 10px;border:1px solid black ; text-align: center; height: 400px;width: 1200px; background-color: rgb(197, 232, 233);">
+            <tr>
+                <td>Имена гостей</td>
+                <td>Номер</td>
+                <td>Действие</td>
+            </tr>
+        </table>
+        <table id="info2" border="1" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;margin: 10px;border:1px solid black ; text-align: center; height: 400px;width: 1200px; background-color: rgb(197, 232, 233);">
+            <tr>
+                <td>Номер</td>
+                <td>Действие</td>
+            </tr>
+            <tr>
+                <td><select id="out"></select></td>
+                <td><button onclick="makeClean()" >Выезд</button></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+</body>
+
+</html>

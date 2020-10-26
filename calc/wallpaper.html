@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta charset="utf-8" />
+  <title>Калькулятор</title>
+  <link rel="stylesheet" href="js/jquery-ui.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/data.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+    });
+
+    function plus(){
+    let lengthRoom = $(`#n3`).val();
+    lengthRoom = Number(lengthRoom);
+    let widthRoom = $(`#n4`).val();
+    widthRoom = Number(widthRoom);
+    let heightRoom = $(`#n5`).val();
+    heightRoom = Number(heightRoom);
+    let lengthPaper = $(`#n1`).val();
+    lengthPaper = Number(lengthPaper);
+    let widthPaper = $(`#n2`).val();
+    widthPaper = Number(widthPaper);
+    console.log(lengthRoom);
+    console.log(widthRoom);
+    console.log(heightRoom);
+   
+      if(lengthRoom>2 && lengthRoom<20 &&  widthRoom>2 &&  widthRoom<20 && heightRoom>2 && heightRoom<6 && lengthPaper>2 && lengthPaper<20 && widthPaper>0.5 && widthPaper<1.5){
+        let pRoom = ((lengthRoom+widthRoom)*2*heightRoom);
+            let pPaper = (lengthPaper*widthPaper);
+            let all = Math.ceil(pRoom/pPaper)
+            console.log(pRoom);
+        $(`#out`).html(all);
+      }else{
+        alert(`Параметры заданы не верно`);
+      }
+   };
+</script>   
+  </head>
+
+  <body>
+    
+<div id="conteiner" style=" background-color :rgb(206, 109, 109);border-radius: 20px;border: 5px solid rgb(236, 56, 56);margin: 5px;text-align: center; width: 500px;"> 
+<div> 
+<p style="margin: 15px;">длина обоев<input type="text" id="n1" value="10">м</p>
+<p style="margin: 15px;">ширина обоев<input type="text" id="n2" value="0.6">м</p>
+
+<p style="margin: 15px;">длина комнаты<input type="text" id="n3" value="5">м</p>
+<p style="margin: 15px;">ширина комнаты<input type="text" id="n4" value="3">м</p>
+<p style="margin: 15px;">высота комнаты<input type="text" id="n5" value="3">м</p>
+
+
+
+<button onclick="plus()" class="btn btn-danger">расчет</button>
+
+<hr>
+<p>Result: <span id="out"></span></p>
+</div>
+</div>   
+    </body>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  </script>
+  <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+  <title>Отель Атланта - Бронирование</title>
+  <script src="js/data.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      for (let i = 0; i < lunch.length; i++) {
+        if (lunch[i].date == new Date().toLocaleDateString()) {
+          console.log(lunch[i]);
+          for (let j = 0; j < lunch[i].soup.length; j++) {
+            $(`#soup`).append('<option>' + lunch[i].soup[j].name + '</option>');
+          }
+          $('#picSoup').attr("src", lunch[i].soup[0].pic);
+          $('#disSoup').text(lunch[i].soup[0].descr);
+
+          for (let j = 0; j < lunch[i].meal.length; j++) {
+            $(`#meal`).append('<option>' + lunch[i].meal[j].name + '</option>');
+          }
+          $('#picMeal').attr("src", lunch[i].meal[0].pic);
+          $('#disMeal').text(lunch[i].meal[0].descr);
+
+          for (let j = 0; j < lunch[i].drink.length; j++) {
+            $(`#drink`).append('<option>' + lunch[i].drink[j].name + '</option>');
+          }
+          $('#picDrink').attr("src", lunch[i].drink[0].pic);
+          $('#disDrink').text(lunch[i].drink[0].descr);
+
+          $( document ).ready(function() {
+      var foodsStr = "";
+      for(let i=0;i<rooms.length;i++)
+      {
+        foodsStr=foodsStr+createCard(food[i]);
+      }
+      $(`#add`).html(foodsStr);
+      let currentUser=JSON.parse(localStorage.getItem("user"));
+      if(currentUser!=undefined)
+        $(`#add`).hide();
+    });
+        }
+      }
+
+      let currentUser = JSON.parse(localStorage.getItem("user"));
+      if (currentUser != undefined)
+        $(`#person`).text(currentUser.name);
+    });
+
+    function changeMeal(param) {
+      //alert(param);
+      // alert($(`#soup option:selected`).text());
+      for (let i = 0; i < lunch.length; i++) {
+        if (lunch[i].date == new Date().toLocaleDateString()) {
+          //console.log(lunch[i]);
+          if (param == 1) {
+            for (let j = 0; j < lunch[i].soup.length; j++) {
+              if (lunch[i].soup[j].name == $(`#soup option:selected`).text()) {
+                //console.log(lunch[i].soup[j]);
+                $('#picSoup').attr("src", lunch[i].soup[j].pic);
+                $('#disSoup').text(lunch[i].soup[j].descr);
+              }
+            }
+          }
+          if (param == 2) {
+            for (let j = 0; j < lunch[i].meal.length; j++) {
+              if (lunch[i].meal[j].name == $(`#meal option:selected`).text()) {
+                //console.log(lunch[i].soup[j]);
+                $('#picMeal').attr("src", lunch[i].meal[j].pic);
+                $('#disMeal').text(lunch[i].meal[j].descr);
+              }
+            }
+          }
+          if (param == 3) {
+            for (let j = 0; j < lunch[i].drink.length; j++) {
+              if (lunch[i].drink[j].name == $(`#drink option:selected`).text()) {
+                //console.log(lunch[i].soup[j]);
+                $('#picDrink').attr("src", lunch[i].drink[j].pic);
+                $('#disDrink').text(lunch[i].drink[j].descr);
+              }
+            }
+          }
+
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="menu">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html"><img src="logo.png" style="height: 64px;"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+            <a class="nav-link" href="index.html">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="room.html">Номера</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ресторан
+            </a>
+            <div class="dropdown-menu" id="food" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="breakfast.html">Завтраки</a>
+              <a class="dropdown-item active" href="foodDay.html">Меню дня</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="review.html">Отзывы</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="BookingList.html">Мои бронирования</a>
+          </li>
+        </ul>
+        <span id="person" style="right:10px ;position: absolute;"><img
+            src="https://image.flaticon.com/icons/svg/1077/1077063.svg" style="width: 24px;
+            margin-right: 5px;"><a href="authorization.html">Войти</a></span>
+      </div>
+    </nav>
+  </div>
+  <div id="conteiner" style="margin-left: 150px; margin-right: 150px;">
+    <div>
+      <div style="text-align: center; font-family: Arial, Helvetica, sans-serif;font-size: 35px; margin: 10px;">Обед</div>
+
+      <div class="foodBackground" style="display: flex; flex-direction:  row;">
+        <div>
+          <img src="soup.jpg" id="picSoup" class="foodPic" style="height: 150px;">
+          <div id="disSoup"></div>
+        </div>
+        <div style="margin-right: 50px;">
+          <div class="foodName">Суп</div>
+          <div class="option">
+            <select id="soup" class="option" onchange="changeMeal(1)">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </div>
+          </div>
+      </div>
+
+      <div class="foodBackground" style="display: flex; flex-direction:  row;">
+        <div>
+          <img src="soup.jpg" id="picMeal" class="foodPic" style="height: 150px;">
+          <div id="disMeal"></div>
+        </div>
+        <div style="margin-right: 50px;">
+        <div class="foodName">Горячее</div>
+        <div class="option">
+          <select id="meal" class="option" onchange="changeMeal(2)">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+        </div>
+      </div>
+      </div>
+
+      <div class="foodBackground" style="display: flex; flex-direction: row;">   
+        <div>
+          <img src="soup.jpg" id="picDrink" class="foodPic" style="height: 150px;">
+          <div id="disDrink"></div>
+        </div>
+        <div style="margin-right: 50px;">
+        <div class="foodName">Напитки</div>
+        <div class="option">
+          <select id="drink" class="option" onchange="changeMeal(2)">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+        </div>
+      </div>
+      </div>
+
+      <div>
+        <div class="foodfastorder">
+          <div class="option">Выберите Ваш номер<div>
+              <select class="select">
+                <option>111</option>
+                <option>222</option>
+                <option>333</option>
+                <option>444</option>
+                <option>555</option>
+              </select>
+              <div class="option">На сколько человек хотите заказкть<div>
+                  <select class="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center;" id="add"><button class="btn btn-danger button">Заказать</button></div>
+      </div>
+      </div>
+</body>
+
+</html>

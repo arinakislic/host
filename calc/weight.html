@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="js/jquery-ui.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/2906/2906797.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/data.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+          
+        });
+        function male() {
+            let tall = +$(`#tall`).val();
+            if (tall < 220 && tall > 150) {
+            let idealMale = ((+$(`#tall`).val() - 100) * 0.9);
+            $(`#res`).val(idealMale);
+        } else {
+                alert(`Цифры введены не верно`)
+                $(`#res`).val(``);
+            }
+        };
+
+        function female() {
+            let tall = +$(`#tall`).val();
+            if (tall < 220 && tall > 150) {
+            let idealMale = ((+$(`#tall`).val() - 100) * 0.85);
+            $(`#res`).val(idealMale);
+        } else {
+                alert(`Цифры введены не верно`)
+                $(`#res`).val(``);
+            }
+        };
+        function show(){
+$(`#mean`).show();
+        }
+
+        function hide(){
+            $(`#mean`).hide();
+        }
+    </script>
+</head>
+
+<body style="background: url(weight.jpg); color: #ffe;">
+    <div id="conteiner" style="margin: 65px; margin-left: 150px;">
+ <div style="font-size: 15px;font: medium;">Личный фитнес тренер</div>
+ <div style="font-size: 25px;font: bold;">Крылова Анастасия</div>
+ <div style="font-size: 55px;font: larger;display: flex;flex-direction: column;margin-top:20px">
+    <span>Постройте фигуру</span>
+    <span>своей мечты</span>
+ </div>
+  
+<div style="font-size: 20px;font: medium; display: flex; flex-direction: column;margin-top: 10px;">
+    <span>-начнешь нравиться себе и окружающим</span>
+    <span>-уберешь жир навсегда</span>
+    <span>-первый результат уже через 4 недели</span>
+</div>
+ <div style="margin-top: 20px;"><button onclick="show()" class="btn btn-light">Посчитать свой идиальный вес</button></div>
+        
+ <div style="margin-top: 5px; display: none;" id="mean"> 
+        <div>
+            <div>Введте ваш рост</div>
+            <div>(150-220см)</div>
+            <input type="text" id="tall">
+        </div>
+
+        <div style="margin: 5px;">
+            <div>Выберете ваш пол</div>
+            <button id="male" onclick="male()" class="btn btn-light">М</button><button id="female" onclick="female()" class="btn btn-light">Ж</button>
+        </div>
+
+        <div>
+            <input type="text" id="res">
+        </div>
+        <div style="margin-top: 20px;"><button onclick="hide()" class="btn btn-light">Спрятать</button></div>
+        </div>
+     
+    </div>
+</body>
+
+</html>
