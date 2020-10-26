@@ -36,12 +36,17 @@
     var clean_rooms;
     
         $(document).ready(function () {
+
+            if(localStorage.getItem("busy")==undefined) 
+            busy_rooms = [];
+            else
             busy_rooms = JSON.parse(localStorage.getItem("busy"));
-            if(busy_rooms==undefined) busy_rooms = [];
-
-            clean_rooms = JSON.parse(localStorage.getItem("clean"));
-            if(clean_rooms==undefined) clean_rooms = [];
-
+            
+            if(localStorage.getItem("clean")==undefined) 
+            { clean_rooms = []; }
+            else
+            { clean_rooms = JSON.parse(localStorage.getItem("clean")); }
+         
             for (let i = 0; i < myBookings.length; i++) {
                 var free_rooms = rooms.find(x => x.roomId == myBookings[i].roomId).numbers;
                 console.log(free_rooms);
@@ -52,19 +57,19 @@
             $(`#out`).html(generateBusySelect());
         });
 
-        function makeBusy()
+        function makeClean()
         {
            // console.log($('#free_rooms').val());
-            busy_rooms.push(parseInt($('#free_rooms').val()));
+            clean_rooms.push(parseInt($('#out').val()));
             //console.log(busy_rooms);
             localStorage.setItem("clean",JSON.stringify(clean_rooms));
             window.location.href = "cons.html";
         }
 
-        function makeClean()
+        function makeBusy()
         {
            // console.log($('#free_rooms').val());
-            clean_rooms.push(parseInt($('#out').val()));
+           busy_rooms.push(parseInt($('#free_rooms').val()));
             //console.log(busy_rooms);
             localStorage.setItem("busy",JSON.stringify(busy_rooms));
             window.location.href = "cons.html";
@@ -84,7 +89,9 @@
             var options = "";
             //console.log(busy_rooms);
             for (let i = 0; i < busy_rooms.length; i++) {
-                    options += "<option value="+busy_rooms[i]+">"+busy_rooms[i]+"</option>";
+                    if(clean_rooms.find(x=>x == busy_rooms[i])==undefined){
+                        options += "<option value="+busy_rooms[i]+">"+busy_rooms[i]+"</option>";
+                    }
             }
             return options;
         }
